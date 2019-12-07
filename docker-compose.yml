@@ -1,0 +1,53 @@
+version: '3'
+networks:
+ internal:
+  driver: bridge
+  ipam:
+    driver: default
+    config:
+      - subnet: 192.168.220.0/28
+services:
+  db:
+     image: mysql:5.6
+     container_name: mysql56
+     hostname: mysql
+     volumes:
+       - ${MYSQL_DATA_PATH:-./mysql}:/var/lib/mysql
+     ports:
+        - "${MYSQL_HOST_PORT:-3307}:3306"
+     restart: always
+     env_file:
+      - ./conf/.env
+     networks:
+      - internal
+  pma:
+     image: phpmyadmin/phpmyadmin
+     container_name: phpmyadmin56
+     restart: always
+     env_file:
+      - ./conf/.env
+     ports:
+      - "${PMA_HOST_PORT:-8080}:80"
+     volumes:
+      - /session
+     networks:
+      - internal
+  php:
+     build:
+      context: ./conf
+     working_dir: /var/www/html
+     container_name: php72_apache
+     restart: always
+     volumes:
+       - ${WEB_DATA_PATH:-./data}:/var/www/html     
+     ports:
+      - ${WEB_HOST_PORT:-81}:80
+     env_file:
+      - ./conf/.env
+     logging:
+      driver: json-file
+      options:
+        max-file: '5'
+        max-size: 50m
+     networks:
+      - internal
