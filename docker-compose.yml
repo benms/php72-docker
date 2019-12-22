@@ -1,4 +1,5 @@
 version: '3'
+
 networks:
  internal:
   driver: bridge
@@ -6,32 +7,11 @@ networks:
     driver: default
     config:
       - subnet: 192.168.220.0/28
+ shared:
+  external:
+   name: mysql_net
+
 services:
-  db:
-     image: mysql:5.6
-     container_name: mysql56
-     hostname: mysql
-     volumes:
-       - ${MYSQL_DATA_PATH:-./mysql}:/var/lib/mysql
-     ports:
-        - "${MYSQL_HOST_PORT:-3307}:3306"
-     restart: always
-     env_file:
-      - ./conf/.env
-     networks:
-      - internal
-  pma:
-     image: phpmyadmin/phpmyadmin
-     container_name: phpmyadmin56
-     restart: always
-     env_file:
-      - ./conf/.env
-     ports:
-      - "${PMA_HOST_PORT:-8080}:80"
-     volumes:
-      - /session
-     networks:
-      - internal
   php:
      build:
       context: ./conf
@@ -39,7 +19,9 @@ services:
      container_name: php72_apache
      restart: always
      volumes:
-       - ${WEB_DATA_PATH:-./data}:/var/www/html     
+       - ${WEB_DATA_PATH:-./data}:/var/www/html
+       - ./conf/php.ini:/usr/local/etc/php.ini
+       - ./conf/xhprof.conf:/etc/apache2/sites-enabled/xhprof.conf
      ports:
       - ${WEB_HOST_PORT:-81}:80
      env_file:
@@ -51,3 +33,5 @@ services:
         max-size: 50m
      networks:
       - internal
+      - shared
+     
