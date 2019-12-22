@@ -1,4 +1,10 @@
-#Run xhprof profiler
+# Edit /etc/hosts
+
+```
+127.0.0.1 xhprof.local
+```
+
+# Run xhprof profiler from the php code
 
 ##### start
 
