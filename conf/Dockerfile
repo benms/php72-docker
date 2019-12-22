@@ -18,6 +18,8 @@ RUN docker-php-ext-install mysqli xml zip mbstring
 
 RUN pecl install xdebug-2.7.0 \
 	&& docker-php-ext-enable xdebug \
-    && pecl install xhprof	
+    && pecl install xhprof \
+    && mkdir -m a=rwx -p /var/log/xhprof \
+    && umask 0022
 
 RUN a2enmod rewrite
