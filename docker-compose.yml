@@ -6,7 +6,7 @@ networks:
   ipam:
     driver: default
     config:
-      - subnet: 192.168.220.0/28
+      - subnet: 192.168.221.0/28
  shared:
   external:
    name: mysql_net
@@ -22,6 +22,7 @@ services:
        - ${WEB_DATA_PATH:-./data}:/var/www/html
        - ./conf/php.ini:/usr/local/etc/php/php.ini
        - ./conf/xhprof.conf:/etc/apache2/sites-enabled/xhprof.conf
+       - ./conf/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
        - ./conf/xhprof_log:/var/log/xhprof_log
      ports:
       - ${WEB_HOST_PORT:-81}:80
@@ -35,4 +36,3 @@ services:
      networks:
       - internal
       - shared
-     
