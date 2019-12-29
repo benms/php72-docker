@@ -18,5 +18,5 @@ xhprof_enable(XHPROF_FLAGS_CPU + XHPROF_FLAGS_MEMORY);
 
 ##### finish
 ```php
-(new XHProfRuns_Default)->save_run(xhprof_disable(), "test");
+(new \XHProfRuns_Default)->save_run(xhprof_disable(), "test");
 ```
