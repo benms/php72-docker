@@ -1,5 +1,4 @@
 version: '3'
-
 networks:
  internal:
   driver: bridge
@@ -25,7 +24,7 @@ services:
        - ./conf/000-default.conf:/etc/apache2/sites-enabled/000-default.conf
        - ./conf/xhprof_log:/var/log/xhprof_log
      ports:
-      - ${WEB_HOST_PORT:-81}:80
+      - ${WEB_HOST_PORT:-80}:80
      env_file:
       - ./conf/.env
      logging:
