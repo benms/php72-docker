@@ -20,6 +20,8 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql xml zip mbstring
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN wget https://psysh.org/psysh -O /usr/local/bin/psysh && chmod +x /usr/local/bin/psysh
+
 RUN pecl install xdebug-2.7.0 \
 	&& docker-php-ext-enable xdebug \
     && pecl install xhprof \
