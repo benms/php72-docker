@@ -3,6 +3,7 @@ name: Github Unique Docker Image build
 on:
   push:
     branches: [ master ]
+  workflow_dispatch:
 
 jobs:
 
