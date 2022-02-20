@@ -1,4 +1,4 @@
-name: Docker Image build
+name: Github Unique Docker Image build
 
 on:
   push:
