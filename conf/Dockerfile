@@ -1,15 +1,13 @@
 FROM php:7.2-apache
 
-MAINTAINER Dmytro Ben <dmitriy.ben@gmail.com>
-
 RUN apt-get update && apt-get install -y \
         libfreetype6-dev libjpeg62-turbo-dev libmcrypt-dev libpng-dev libxml2-dev libpq-dev \
         graphviz openssl curl vim wget unzip bc zip mc htop tmux \
         sysstat apg iotop \
         git subversion redis-tools \
-        imagemagick wkhtmltopdf sendmail libssl-dev build-essential ffmpeg \    
+        imagemagick wkhtmltopdf sendmail libssl-dev build-essential ffmpeg \
     && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* \    
+    && rm -rf /var/lib/apt/lists/* \
     && pecl install mcrypt-1.0.2 \
     && docker-php-ext-enable mcrypt \
     && docker-php-ext-install -j$(nproc) iconv \
