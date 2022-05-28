@@ -3,6 +3,7 @@ name: Github Unique Docker Image build
 on:
   push:
     branches: [ master ]
+  
   workflow_dispatch:
 
 jobs:
@@ -11,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    
     - uses: actions/checkout@v2
+    
     - name: Build the Docker image
       run: docker build . --file ./conf/Dockerfile --tag php-apache-dev:7.2-$(date +%s)
